@@ -1,0 +1,101 @@
+index.html
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contato Secreto</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10131a;color:#fff;font-family:Arial,sans-serif;padding:22px}
+.container{max-width:420px;margin:35px auto}
+.logo{text-align:center;font-size:48px}
+h1{text-align:center;margin-bottom:8px}
+p{text-align:center;color:#aab2c0}
+.card{background:#1b202b;padding:22px;border-radius:18px;margin-top:25px}
+input,button{width:100%;padding:14px;margin-top:12px;border-radius:10px;font-size:16px}
+input{background:#10131a;color:white;border:1px solid #414958}
+button{background:#7c5cff;color:white;border:0;font-weight:bold}
+.secondary{background:#303847}
+.contact{padding:12px;background:#292f3c;border-radius:10px;margin-top:10px;overflow-wrap:anywhere}
+.hidden{display:none}
+small{color:#aab2c0}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">🔐</div>
+    <h1>Contato Secreto</h1>
+      <p>Sua área privada</p>
+
+        <section id="login" class="card">
+            <h2>Acesso protegido</h2>
+                <p>Digite sua senha para continuar.</p>
+                    <input id="password" type="password" placeholder="Senha de acesso">
+                        <button onclick="entrar()">Entrar</button>
+                            <small id="erro"></small>
+                              </section>
+
+                                <section id="painel" class="card hidden">
+                                    <h2>Meus contatos</h2>
+                                        <input id="nome" placeholder="Nome do contato">
+                                            <input id="telefone" type="tel" placeholder="Telefone (opcional)">
+                                                <button onclick="adicionar()">+ Adicionar contato</button>
+                                                    <div id="lista"></div>
+                                                        <button class="secondary" onclick="sair()">Bloquear área</button>
+                                                          </section>
+                                                            <p><small>Protótipo inicial — não armazene dados reais ainda.</small></p>
+                                                            </div>
+
+                                                            <script>
+                                                            const CHAVE = "contato-secreto-demo";
+                                                            let contatos = [];
+
+                                                            function entrar(){
+                                                              if(document.getElementById("password").value === "1234"){
+                                                                  document.getElementById("login").classList.add("hidden");
+                                                                      document.getElementById("painel").classList.remove("hidden");
+                                                                          document.getElementById("erro").textContent = "";
+                                                                              mostrar();
+                                                                                }else{
+                                                                                    document.getElementById("erro").textContent = "Senha incorreta.";
+                                                                                      }
+                                                                                      }
+
+                                                                                      function adicionar(){
+                                                                                        const nome = document.getElementById("nome").value.trim();
+                                                                                          const telefone = document.getElementById("telefone").value.trim();
+                                                                                            if(!nome){alert("Digite o nome do contato.");return;}
+                                                                                              contatos.push({nome,telefone});
+                                                                                                document.getElementById("nome").value = "";
+                                                                                                  document.getElementById("telefone").value = "";
+                                                                                                    mostrar();
+                                                                                                    }
+
+                                                                                                    function mostrar(){
+                                                                                                      const lista = document.getElementById("lista");
+                                                                                                        lista.replaceChildren();
+                                                                                                          contatos.forEach((c,i)=>{
+                                                                                                              const item = document.createElement("div");
+                                                                                                                  item.className = "contact";
+                                                                                                                      const texto = document.createElement("div");
+                                                                                                                          texto.textContent = c.nome + (c.telefone ? " — " + c.telefone : "");
+                                                                                                                              const excluir = document.createElement("button");
+                                                                                                                                  excluir.className = "secondary";
+                                                                                                                                      excluir.textContent = "Excluir";
+                                                                                                                                          excluir.onclick = ()=>{contatos.splice(i,1);mostrar();};
+                                                                                                                                              item.append(texto,excluir);
+                                                                                                                                                  lista.appendChild(item);
+                                                                                                                                                    });
+                                                                                                                                                    }
+
+                                                                                                                                                    function sair(){
+                                                                                                                                                      document.getElementById("painel").classList.add("hidden");
+                                                                                                                                                        document.getElementById("login").classList.remove("hidden");
+                                                                                                                                                          document.getElementById("password").value = "";
+                                                                                                                                                          }
+                                                                                                                                                          </script>
+                                                                                                                                                          </body>
+                                                                                                                                                          </html>
+                                                                                                                                                          
